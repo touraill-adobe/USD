@@ -871,9 +871,9 @@ function(_pxr_target_link_libraries NAME)
                     #
                     list(APPEND final -WHOLEARCHIVE:$<TARGET_FILE:${lib}>)
                     list(APPEND final ${lib})
-                elseif(CMAKE_COMPILER_IS_GNUCXX)
+                elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
                     list(APPEND final -Wl,--whole-archive ${lib} -Wl,--no-whole-archive)
-                elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+                elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
                     list(APPEND final -Wl,-force_load ${lib})
                 else()
                     # Unknown platform.

@@ -1049,12 +1049,12 @@ function(pxr_toplevel_epilogue)
                 PRIVATE
                     -WHOLEARCHIVE:$<BUILD_INTERFACE:$<TARGET_FILE:usd_m>>
             )
-        elseif(CMAKE_COMPILER_IS_GNUCXX)
+        elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             target_link_libraries(usd_ms
                 PRIVATE
                     -Wl,--whole-archive $<BUILD_INTERFACE:$<TARGET_FILE:usd_m>> -Wl,--no-whole-archive
             )
-        elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+        elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
             target_link_libraries(usd_ms
                 PRIVATE
                     -Wl,-force_load $<BUILD_INTERFACE:$<TARGET_FILE:usd_m>>

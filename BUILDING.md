@@ -613,9 +613,9 @@ this:
 ```cmake
 if(MSVC)
     target_link_libraries(mylib -WHOLEARCHIVE:$<TARGET_FILE:usd_m> usd_m)
-elseif(CMAKE_COMPILER_IS_GNUCXX)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_link_libraries(mylib -Wl,--whole-archive usd_m -Wl,--no-whole-archive)
-elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     target_link_libraries(mylib -Wl,-force_load usd_m)
 endif()
 ```
